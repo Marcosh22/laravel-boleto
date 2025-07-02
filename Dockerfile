@@ -1,4 +1,4 @@
-FROM php:7.3.25-fpm-alpine3.11
+FROM php:8.3-fpm-alpine
 
 RUN apk add --no-cache \
   openssl \
@@ -10,11 +10,17 @@ RUN apk add --no-cache \
   zlib-dev \
   libsodium-dev \
   icu-dev \
-  libpng-dev
+  icu-data-full \
+  libpng-dev \
+  linux-headers
 
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install zip sodium intl gd
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN docker-php-ext-enable zip sodium
+
+# Configuração do Xdebug
+RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

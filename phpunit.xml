@@ -5,14 +5,8 @@
         colors="true"
         processIsolation="true"
         stopOnFailure="false"
-        xsi:noNamespaceSchemaLocation="/phpunit.xsd">
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd">
   <coverage>
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-    <exclude>
-      <directory suffix=".php">./src/Boleto/Render/view</directory>
-    </exclude>
     <report>
       <clover outputFile="tests/_reports/logs/clover.xml"/>
       <html outputDirectory="tests/_reports/coverage" lowUpperBound="35" highLowerBound="70"/>
@@ -26,6 +20,14 @@
   <logging>
     <testdoxText outputFile="tests/_reports/testdox/executed.txt"/>
   </logging>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./src/Boleto/Render/view</directory>
+    </exclude>
+  </source>
   <php>
     <env name="APP_ENV" value="testing"/>
   </php>
